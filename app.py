@@ -4,7 +4,7 @@
 #     - POST /predict that takes the property details as input and return the prediction as output
 from preprocessing.cleaning_data import preprocess
 from predict.prediction import predict
-from fastapi import FastAPI, HTTPException, status
+from fastapi import FastAPI, status
 
 app = FastAPI()
 
@@ -12,13 +12,21 @@ app = FastAPI()
 async def root():
     return "Alive"
 
+
+# {
+# "prediction": Optional[float],
+# "status_code": Optional[int]
+# }
+
 @app.post("/predict")
-def predict_post(new_property_data):
+async def predict_post(new_property_data):
     preprocessed_data = preprocess(new_property_data)
-    return predict(preprocessed_data)
+    prediction = predict(preprocessed_data)
+
+    return {'prediction': prediction, 'status_code':status.HTTP_202_ACCEPTED}
 
 @app.get("/predict")
-def predict_get():
+async def predict_get():
     return ('Expected format:\
 {"data":\
 {"area": int,\
