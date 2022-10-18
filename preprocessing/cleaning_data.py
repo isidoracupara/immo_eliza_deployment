@@ -45,7 +45,7 @@ def preprocess(data_json):
             data['building_state'] = 4
         case "HOUSE":
             data['building_state'] = 2
-        case "OTHERS":
+
 
 
     data['building_state'] = data['building_state'].upper()

@@ -4,21 +4,40 @@
 #     - POST /predict that takes the property details as input and return the prediction as output
 from preprocessing.cleaning_data import preprocess
 from predict.prediction import predict
-import requests
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, status
+
 app = FastAPI()
 
 @app.get("/")
 async def root():
-    print(requests.get.status_code)
+    return "Alive"
 
 @app.post("/predict")
-def post(new_property_data):
-    return preprocess(new_property_data)
+def predict_post(new_property_data):
+    preprocessed_data = preprocess(new_property_data)
+    return predict(preprocessed_data)
 
 @app.get("/predict")
-def get(preprocessed_data):
-    return predict(preprocessed_data)
+def predict_get():
+    return ('Expected format:\
+{"data":\
+{"area": int,\
+"property-type": "APARTMENT" | "HOUSE" | "OTHERS",\
+"rooms-number": int,\
+"zip-code": int,\
+"land-area": Optional[int],\
+"garden": Optional[bool],\
+"garden-area": Optional[int],\
+"equipped-kitchen": Optional[bool],\
+"full-address": Optional[str],\
+"swimming-pool": Optional[bool],\
+"furnished": Optional[bool],\
+"open-fire": Optional[bool],\
+"terrace": Optional[bool],\
+"terrace-area": Optional[int],\
+"facades-number": Optional[int],\
+"building-state": Optional [str] \
+("NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD") }")')
 
 
 # class predict(new_property):
@@ -44,13 +63,13 @@ def get(preprocessed_data):
     
 
 
-# push the data through process
-# This wll clean the data so you use the data that is relevant for your specific model
-preprocessed_data = preprocess(data)
+# # push the data through process
+# # This wll clean the data so you use the data that is relevant for your specific model
+# preprocessed_data = preprocess(data)
 
-# Then we pass the cleaned data through the model
-prediction = model.predict(preprocessed_data)
+# # Then we pass the cleaned data through the model
+# prediction = model.predict(preprocessed_data)
 
-# After that we get prediction results
-# We return the prediction results via a response to the request we got through our API
-return prediction
+# # After that we get prediction results
+# # We return the prediction results via a response to the request we got through our API
+# return prediction
