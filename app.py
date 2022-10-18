@@ -2,7 +2,7 @@
 # - / -> Just return Alive! if the API is running
 #     - GET /predict return a string with the schema of the input expected. That's just for documentation purpose. (Yes FastAPI is already generating a nice documentation, it's just for the exercice)
 #     - POST /predict that takes the property details as input and return the prediction as output
-from preprocessing.cleaning_data import preprocess
+from preprocessing.cleaning_data import Property, preprocess
 from predict.prediction import predict
 from fastapi import FastAPI, status
 
@@ -19,7 +19,7 @@ async def root():
 # }
 
 @app.post("/predict")
-async def predict_post(new_property_data):
+async def predict_post(new_property_data: Property):
     preprocessed_data = preprocess(new_property_data)
     prediction = predict(preprocessed_data)
 
@@ -45,7 +45,7 @@ async def predict_get():
 "terrace-area": Optional[int],\
 "facades-number": Optional[int],\
 "building-state": Optional [str] \
-("NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD") }")')
+("NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"')
 
 
 # class predict(new_property):
