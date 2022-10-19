@@ -3,7 +3,7 @@
 #     - GET /predict return a string with the schema of the input expected. That's just for documentation purpose. (Yes FastAPI is already generating a nice documentation, it's just for the exercice)
 #     - POST /predict that takes the property details as input and return the prediction as output
 from preprocessing.cleaning_data import Property, preprocess
-from predict.prediction import predict
+from predict.prediction import predict_price
 from fastapi import FastAPI, status
 
 app = FastAPI()
@@ -11,7 +11,6 @@ app = FastAPI()
 @app.get("/")
 async def root():
     return "Alive"
-
 
 # {
 # "prediction": Optional[float],
@@ -21,7 +20,7 @@ async def root():
 @app.post("/predict")
 async def predict_post(new_property_data: Property):
     preprocessed_data = preprocess(new_property_data)
-    prediction = predict(preprocessed_data)
+    prediction = predict_price(preprocessed_data)
 
     return {'prediction': prediction, 'status_code':status.HTTP_202_ACCEPTED}
 

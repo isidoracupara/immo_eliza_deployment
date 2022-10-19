@@ -51,12 +51,12 @@ def preprocess(data: Property) -> List[int]:
     processed_data['number_of_facades'] = data_dictionary['facades_number']    
 
     # turning bools into int
-    processed_data['garden'] = data_dictionary['garden'].astype(int)
-    processed_data['fully_equipped_kitchen'] = data_dictionary['equipped_kitchen'].astype(int)
-    processed_data['swimming_pool'] = data_dictionary['swimming_pool'].astype(int)
-    processed_data['furnished'] = data_dictionary['swimming_pool'].astype(int)
-    processed_data['open_fire'] = data_dictionary['open_fire'].astype(int)
-    processed_data['terrace'] = data_dictionary['terrace'].astype(int)
+    processed_data['garden'] = int(data_dictionary['garden'])
+    processed_data['kitchen_type'] = int(data_dictionary['equipped_kitchen'])
+    processed_data['swimming_pool'] = int(data_dictionary['swimming_pool'])
+    processed_data['furnished'] = int(data_dictionary['swimming_pool'])
+    processed_data['open_fire'] = int(data_dictionary['open_fire'])
+    processed_data['terrace'] = int(data_dictionary['terrace'])
 
 
     processed_data['type_of_property'] = data_dictionary['property_type']
@@ -83,7 +83,7 @@ def preprocess(data: Property) -> List[int]:
 
     mandatory_data = [data_dictionary['area'], data_dictionary['property_type'], data_dictionary['rooms_number'], data_dictionary['zip_code']]
     for column in mandatory_data:
-        if column == None | column == 0:
+        if column == 0:
             raise HTTPException(status_code=400, detail="Invalid input. Please include at least area, property type, number of rooms and zip code.")
 
     processed_data['postal_code'] = map_postal_code(data_dictionary['zip_code'])

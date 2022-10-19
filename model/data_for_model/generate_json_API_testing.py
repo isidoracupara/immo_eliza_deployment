@@ -8,4 +8,4 @@ df = pd.read_csv (r'model/data_for_model/postcode_added_data.csv')
 df = df.iloc[randint(1, len(df. axes[0]))]
 
 
-df.to_json (r'model/data_for_model/API_test_data.json')
+#df.to_json (r'model/data_for_model/API_test_data.json')

@@ -5,9 +5,9 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import cross_val_score, KFold
 
-pickle_filename = "pickle_model.pkl"
+pickle_filename = "model/pickle_model.pkl"
 
-df_2 = pd.read_csv(r'data_for_model\postcode_added_data.csv')
+df_2 = pd.read_csv('model/data_for_model/postcode_added_data.csv')
 X_2 = df_2.drop('price',axis=1).values
 y_2 = df_2['price'].values
 
@@ -17,7 +17,7 @@ pol = PolynomialFeatures(degree=2)
 
 X_pol = pol.fit_transform(X_2)
 
-reg = LinearRegression()
+reg = LinearRegression().fit(X_2, y_2)
 
 
 with open (pickle_filename, 'wb') as file:
