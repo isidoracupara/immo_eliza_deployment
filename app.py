@@ -69,15 +69,3 @@ async def predict_get():
 #     # methods go here
 #     pass
     
-
-
-# # push the data through process
-# # This wll clean the data so you use the data that is relevant for your specific model
-# preprocessed_data = preprocess(data)
-
-# # Then we pass the cleaned data through the model
-# prediction = model.predict(preprocessed_data)
-
-# # After that we get prediction results
-# # We return the prediction results via a response to the request we got through our API
-# return prediction
