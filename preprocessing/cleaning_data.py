@@ -1,5 +1,4 @@
 from typing import List, Literal, Optional
-import json
 from fastapi import HTTPException
 from pydantic import BaseModel
 
@@ -36,6 +35,7 @@ def preprocess(data: Property) -> List[int]:
     data_dictionary = data.dict()
     processed_data = {}
 
+    # changin collumn names to what my model understands
     # features = ['id', 'locality', 'postal_code', 'region', 'province',
     #    'type_of_property', 'subtype_of_property', 'type_of_sale', 'price',
     #    'number_of_bedrooms', 'surface', 'kitchen_type',
@@ -104,7 +104,5 @@ def preprocess(data: Property) -> List[int]:
         processed_data['state_of_the_building'],
     ]
 
-
-    processed_data['zip_code'] = map_postal_code(data_dictionary['zip-code'])
 
     return model_input
