@@ -59,26 +59,24 @@ def preprocess(data: Property) -> List[int]:
     processed_data['terrace'] = int(data_dictionary['terrace'])
 
 
-    processed_data['type_of_property'] = data_dictionary['property_type']
-    match data_dictionary["building_state"]:
+    match data_dictionary["property_type"]:
         case "APARTMENT":
-            data_dictionary['building_state'] = 0
+            processed_data['type_of_property'] = 0
         case "HOUSE":
-            data_dictionary['building_state'] = 1
+            processed_data['type_of_property'] = 1
 
 
-    processed_data['state_of_the_building'] = data_dictionary['building_state']
     match data_dictionary["building_state"]:
         case "NEW":
-            data_dictionary['building_state'] = 4
+            processed_data['state_of_the_building'] = 4
         case "GOOD":
-            data_dictionary['building_state'] = 2
+            processed_data['state_of_the_building'] = 2
         case "TO RENOVATE":
-            data_dictionary['building_state'] = 1
+            processed_data['state_of_the_building'] = 1
         case "JUST RENOVATED":
-            data_dictionary['building_state'] = 3
+            processed_data['state_of_the_building'] = 3
         case "TO REBUILD":  
-            data_dictionary['building_state'] = 0
+            processed_data['state_of_the_building'] = 0
 
 
     mandatory_data = [data_dictionary['area'], data_dictionary['property_type'], data_dictionary['rooms_number'], data_dictionary['zip_code']]
@@ -103,6 +101,5 @@ def preprocess(data: Property) -> List[int]:
         processed_data['swimming_pool'],
         processed_data['state_of_the_building'],
     ]
-
 
     return model_input

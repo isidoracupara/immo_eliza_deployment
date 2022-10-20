@@ -17,12 +17,10 @@ pol = PolynomialFeatures(degree=2)
 
 X_pol = pol.fit_transform(X_2)
 
-reg = LinearRegression().fit(X_2, y_2)
-
+reg = LinearRegression().fit(X_pol, y_2)
 
 with open (pickle_filename, 'wb') as file:
     pickle.dump(reg, file)
-
 
 cv_results = cross_val_score(reg, X_pol, y_2, cv=kf)
 
