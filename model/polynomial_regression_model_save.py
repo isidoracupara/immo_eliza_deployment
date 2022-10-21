@@ -1,7 +1,6 @@
 import pickle
 import pandas as pd
 import numpy as np
-import sklearn
 from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
