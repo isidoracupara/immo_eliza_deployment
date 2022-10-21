@@ -2,6 +2,7 @@
 # - / -> Just return Alive! if the API is running
 #     - GET /predict return a string with the schema of the input expected. That's just for documentation purpose. (Yes FastAPI is already generating a nice documentation, it's just for the exercice)
 #     - POST /predict that takes the property details as input and return the prediction as output
+import uvicorn
 from preprocessing.cleaning_data import Property, preprocess
 from predict.prediction import predict_price
 from fastapi import FastAPI, status
@@ -17,12 +18,21 @@ async def root():
 # "status_code": Optional[int]
 # }
 
+
 @app.post("/predict")
 async def predict_post(new_property_data: Property):
+    # print('before')
     preprocessed_data = preprocess(new_property_data)
+    # print('after preprocess')
     prediction = predict_price(preprocessed_data)
+    # print('after pred')
+    # print('pred', prediction)
+    # print('pred type', type(prediction))
 
-    return {'prediction': prediction, 'status_code':status.HTTP_202_ACCEPTED}
+
+
+    return prediction
+
 
 @app.get("/predict")
 async def predict_get():
@@ -46,6 +56,11 @@ async def predict_get():
 "building-state": Optional [str] \
 ("NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"')
 
+# if __name__ == "__main__":
+#     uvicorn.run(app, host="0.0.0.0", port=8000)
+
+
+
 
 # class predict(new_property):
 #     def get(self):
@@ -67,4 +82,13 @@ async def predict_get():
 # class Locations(Resource):
 #     # methods go here
 #     pass
+
+# def predict_post_test(new_property_data: Property):
+#     preprocessed_data = preprocess(new_property_data)
+#     prediction = predict_price(preprocessed_data)
+
+#     return {'prediction': prediction, 'status_code':status.HTTP_202_ACCEPTED}
     
+# test = Property()  # type: ignore
+
+# print(predict_post_test(test))

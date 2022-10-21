@@ -29,7 +29,7 @@ class Property(BaseModel):
     terrace_area: Optional[int]
     facades_number: Optional[int]
     building_state: Optional[
-        Literal["NEW"] | Literal["GOOD"] | Literal["TO RENOVATE"] | Literal["JUST RENOVATED"] | Literal["TO REBUILD"]]
+        Literal["NEW"] | Literal["GOOD"] | Literal["TO RENOVATE"] | Literal["JUST RENOVATED"] | Literal["TO REBUILD"]] = "JUST RENOVATED"
 
 def preprocess(data: Property) -> List[int]:
     data_dictionary = data.dict()
